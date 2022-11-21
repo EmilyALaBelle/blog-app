@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
+import {Link} from 'react-router-dom'
 
 export default function Home() {
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:4040/')
+    fetch('http://54.173.101.137:4040')
       .then(res => res.json())
       .then(data => setPosts(data))
       .catch(err => console.error(err))
@@ -17,12 +18,12 @@ export default function Home() {
       <div className="posts">
         {posts.map((item, index) => {
         return (
-          <div className="post-item" key={item._id}>
+          <Link state={item} to={'./single-post'} className="post-item" key={item._id}>
             <img src ={`https://source.unsplash.com/random?sig=${index}`} alt='' />
             <h4>{item.author}</h4>
             <p>{item.text}</p>
             <p>{item.date}</p>
-          </div>
+          </Link>
         )
       })}</div>
     )
